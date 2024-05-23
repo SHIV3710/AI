@@ -22,7 +22,7 @@ export const SendMessage = async (user:any, UserMessage:any,setmessageloading:an
 
         setmessageloading(false);
         if (!Topic) {
-            setUserHistory([...userHistory.Topics, data.Conversation])
+            setUserHistory([...userHistory, {Topic:data.Conversation.topic}])
         }
         setcurrconv({
             Topic: data.Conversation.topic,
