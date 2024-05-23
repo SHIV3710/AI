@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useEffect, useState } from 'react'
-import UserContext from './UserContext';
+import  { CurrConv, User, UserContext, UserHistory } from './UserContext';
  import { Bounce, ToastContainer, toast } from 'react-toastify';
   import 'react-toastify/dist/ReactToastify.css';
 
@@ -9,17 +9,20 @@ import UserContext from './UserContext';
 const UserContextProvider = ({ children,}: Readonly<{children: React.ReactNode;}>) =>  { 
 
 
-    const [user, setuser] = useState<any>(null);
-    const [loading, setloading] = useState<any>(false);
-    const [currconv, setcurrconv] = useState<any[]>([
+    const [user, setuser] = useState<User>( {
+        id: "",
+        Email:"",
+    });
+    const [loading, setloading] = useState<Boolean>(false);
+    const [currconv, setcurrconv] = useState<CurrConv>(
         {
             Topic: "",
-            messages:[],
+            Messages:[],
         }
-    ]);
-    const [messageloading, setmessageloading] = useState<any>(false);
-    const [UserHistory, setUserHistory] = useState<any[]>([]);
-    const [Error, setError] = useState<any>("");
+    );
+    const [messageloading, setmessageloading] = useState<Boolean>(false);
+    const [userHistory, setuserHistory] = useState<UserHistory>([]);
+    const [Error, setError] = useState<String>("");
 
 
     const error = () => toast.error(Error, {
@@ -58,16 +61,6 @@ const UserContextProvider = ({ children,}: Readonly<{children: React.ReactNode;}
       transition: Bounce,
     });
 
-
-    const AddMessageToConv = async (message: any) => {
-    }
-
-    const RemoveLastMessage = async (message: any) => {
-        let mess = currconv;
-        mess.pop();
-        setcurrconv(mess);
-    }
-
     useEffect(() => {
         if (Error) {
             error();
@@ -76,7 +69,7 @@ const UserContextProvider = ({ children,}: Readonly<{children: React.ReactNode;}
     }, [Error])
     
     useEffect(() => {
-        if (user) {
+        if (user && user.Email) {
             loginsuccess();
         }
     }, [user])
@@ -89,10 +82,10 @@ const UserContextProvider = ({ children,}: Readonly<{children: React.ReactNode;}
     useEffect(() => {
         if(messageloading)
             loadingnotify('Ai is thinking...');
-    },[messageloading])
-
+    }, [messageloading])
+    
     return (
-        <UserContext.Provider value={{ user, setuser ,loading, setloading ,currconv,setcurrconv,AddMessageToConv,messageloading,setmessageloading, RemoveLastMessage,UserHistory,setUserHistory,Error,setError}}>
+        <UserContext.Provider value={{ user, setuser ,loading, setloading ,currconv,setcurrconv,messageloading,setmessageloading, userHistory,setuserHistory,Error,setError}}>
             {children}
         </UserContext.Provider>
     )

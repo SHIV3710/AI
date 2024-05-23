@@ -5,7 +5,7 @@ export const login = async (email: any, password: any,setuser:any,setloading:any
     
     const secretkey = process.env.NEXT_PUBLIC_SECRET_KEY;
     try {
-        setloading(true);
+        setloading({value:true});
         const { data  } = await axios.post("http://localhost:3000/api/login", {
             email: email,
             password: password,
@@ -22,12 +22,15 @@ export const login = async (email: any, password: any,setuser:any,setloading:any
             {
                 localStorage.setItem('token', token);
             }
-            setloading(false);
-            setuser(data.user);
+            setloading({value:false});
+            setuser({
+                id: data.user.id,
+                Email: data.user.id,
+            });
         }
     } catch (error:any) {
-        setloading(false);
-        setError(error.message);
+        setloading({ value:false});
+        setError( error.message );
         
     }
 }
@@ -39,11 +42,13 @@ export const loaduser = async (setuser:any,setError:any) => {
             token: localStorage.getItem('token'),
         })
         if (data.error) throw new Error(data.error);
+        setuser({
+            id: data.decoded.data.id,   
+            Email:data.decoded.data.Email,
+        })
         
-        setuser(data.decoded.data)
-        
-    } catch (error) {
-        setError(data.error);
+    } catch (error:any) {
+        setError(error.message);
     }
 }
 

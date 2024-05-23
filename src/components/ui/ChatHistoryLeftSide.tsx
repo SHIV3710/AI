@@ -1,7 +1,7 @@
 "use client"
 import React, { useContext } from 'react'
 import { LoadConversation } from '../ServerSideComponents/Message'
-import UserContext from '@/context/UserContext';
+import { UserContext } from '@/context/UserContext';
 
 const ChatHistoryLeftSide = ({ item }: { item: any }) => {
 

@@ -1,11 +1,11 @@
 import axios from "axios";
 
-export const SendMessage = async (user:any, UserMessage:any,setmessageloading:any,currconv:any,setcurrconv:any,Topic:any,UserHistory:any,setUserHistory:any,setError:any) => {
+export const SendMessage = async (user:any, UserMessage:any,setmessageloading:any,currconv:any,setcurrconv:any,Topic:any,userHistory:any,setUserHistory:any,setError:any) => {
     try {
-        setmessageloading(true);
+        setmessageloading({value:true});
         setcurrconv({
             Topic: Topic,
-            messages: currconv.messages ? [...currconv.messages, {
+            Messages: currconv.Messages ? [...currconv.Messages, {
                 SenderId: "You",
                 message:UserMessage,
             }]:[{
@@ -22,11 +22,11 @@ export const SendMessage = async (user:any, UserMessage:any,setmessageloading:an
 
         setmessageloading(false);
         if (!Topic) {
-            setUserHistory([...UserHistory, data.Conversation])
+            setUserHistory([...userHistory.Messages, data.Conversation])
         }
         setcurrconv({
             Topic: data.Conversation.topic,
-            messages:currconv.messages?[...currconv.messages,data.UserMessage,data.AiMessage]:[data.UserMessage,data.AiMessage]
+            Messages:currconv.Messages?[...currconv.Messages,data.UserMessage,data.AiMessage]:[data.UserMessage,data.AiMessage]
         });
         
         
@@ -48,6 +48,7 @@ export const LoadConversation = async (user:any,setloading:any,topic:any,setcurr
             throw new Error(data.error);
         }
         setloading(false);
+        console.log(data.Conversation);
         setcurrconv(data.Conversation);
 
     } catch (error: any) {

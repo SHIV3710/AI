@@ -30,20 +30,20 @@ import {
   AvatarImage,
 } from "@/components/ui/avatar"
 import { useContext, useEffect, useState } from "react";
-import UserContext from "@/context/UserContext";
+import {UserContext} from "@/context/UserContext";
 import { useRouter } from 'next/navigation';
 import { loaduser, logout } from "@/components/ServerSideComponents/Login";
 import { Button } from "@/components/ui/button";
 import { SendMessage } from "@/components/ServerSideComponents/Message";
 import { LoadHistory } from "@/components/ServerSideComponents/LoadHistory";
-import { ToastContainer } from "react-toastify";
 
 
 export default function Home() {
 
-
-  const { user, setuser, currconv, setcurrconv,setmessageloading ,UserHistory,setUserHistory,setError} = useContext(UserContext);
+  
+  const { user, setuser, currconv, setcurrconv,setmessageloading ,userHistory,setuserHistory,setError,loading} = useContext(UserContext);
   const [UserMessage, setCurrMessage] = useState<any>("");
+  const [UserHistory, setUserHistory] = useState<any>([]);
   
   
   const router = useRouter();
@@ -51,14 +51,15 @@ export default function Home() {
   const { setTheme} = useTheme();
 
   useEffect(() => {
-    if (!user) {
+    if (!user || !user.Email) {
       router.push('/login');
     }
   }, [user])
 
 
   useEffect(() => {
-    LoadHistory(user,setUserHistory,setError);
+    if(user && user.id)
+      LoadHistory(user,setuserHistory,setError);
   },[])
 
   const handletheme = () => {
@@ -72,13 +73,21 @@ export default function Home() {
     e.preventDefault();
     setCurrMessage("");
     const Topic = currconv   ? currconv.Topic : "";
-    await SendMessage(user, UserMessage, setmessageloading, currconv,setcurrconv , Topic, UserHistory, setUserHistory,setError);
+    await SendMessage(user, UserMessage, setmessageloading, currconv,setcurrconv , Topic, userHistory, setuserHistory,setError);
   }
 
   const handlenewchat = async () => {
-    setcurrconv([]);
+    setcurrconv({
+      Topic: "",
+      Messages:[],
+    });
   }
-  
+
+  useEffect(() => {
+    console.log(userHistory);
+  },[userHistory])
+
+
 
   return (
     <div className='h-200 w-200 flex'>
@@ -92,8 +101,8 @@ export default function Home() {
                 <SheetTitle>Your History</SheetTitle>
               </SheetHeader>
                  {
-                  UserHistory && UserHistory.map((item:any, index:any) => {
-                    return <ChatHistoryLeftSide item={item.topic} key={index} />
+                  userHistory &&  userHistory.map((item:any, index:any) => {
+                    return <ChatHistoryLeftSide item={item.Topic} key={index} />
                   })
                 }
 
@@ -119,8 +128,8 @@ export default function Home() {
 
         <div className="h-170 w-160 flex flex-col gap-5 overflow-y-scroll no-scrollbar">
               {
-                  currconv && currconv.messages &&
-                  currconv.messages.map((item:any, index:any) => {
+                  currconv && currconv.Messages &&
+                  currconv.Messages.map((item:any, index:any) => {
                     return <SingleMessage message={item.message}  sender={item.SenderId}  key={index} />
                   })
               }

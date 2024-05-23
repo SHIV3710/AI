@@ -25,6 +25,8 @@ export async function PUT(request:Request) {
 
         const conversationmessages = [];
 
+        console.log(conversation);
+
         for (let i = 0; i < conversation.messages.length; i++){
             const { data, error } = await supabase.from("message").select().eq('id', conversation.messages[i]);
             if (data && data.length > 0) {
@@ -43,7 +45,7 @@ export async function PUT(request:Request) {
         return NextResponse.json({
             Conversation: data ? {
                 Topic: data[0].topic,
-                messages:data[0].messages,
+                Messages:data[0].messages,
             }:"",
             
         })

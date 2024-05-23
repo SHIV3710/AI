@@ -16,7 +16,7 @@ import { FaApple } from "react-icons/fa";
 import React, { useEffect, useState } from 'react'
 import { loaduser, login } from '@/components/ServerSideComponents/Login';
 import { useContext } from "react";
-import UserContext from "@/context/UserContext";
+import { UserContext } from '@/context/UserContext';
 
 
 
@@ -39,10 +39,10 @@ const Page = () => {
   }
   
   useEffect(() => {
-    if (localStorage.getItem('token') && !user) {
+    if (localStorage.getItem('token') && !user.Email) {
       handleloaduser();
     }
-    if(user) router.push('/home')
+    if(user && user.Email) router.push('/home')
   }, [user])
   
   
