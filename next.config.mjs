@@ -20,7 +20,7 @@ const nextConfig = {
           },
           {
             key: 'Access-Control-Allow-Origin',
-            value: '*', // Specify your allowed origin
+            value: 'https://ai-gs47.onrender.com', // Specify your allowed origin
           },
           {
             key: 'Access-Control-Allow-Methods',
