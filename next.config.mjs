@@ -12,12 +12,12 @@ const nextConfig = {
   async headers() {
     return [
       {
-        // Match all API routes
+        // Apply these headers to all API routes
         source: '/api/:path*',
         headers: [
           {
             key: 'Access-Control-Allow-Origin',
-            value: '*', // You can specify your allowed origins here
+            value: 'https://ai-fxavxfce1-shiv3710s-projects.vercel.app', // Specify your allowed origin
           },
           {
             key: 'Access-Control-Allow-Methods',
