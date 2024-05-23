@@ -6,7 +6,7 @@ export const login = async (email: any, password: any,setuser:any,setloading:any
     const secretkey = process.env.NEXT_PUBLIC_SECRET_KEY;
     try {
         setloading({value:true});
-        const { data  } = await axios.post("https://ai-3g9n8rp9x-shiv3710s-projects.vercel.app/api/login", {
+        const { data  } = await axios.post("https://ai-gs47.onrender.com/api/login", {
             email: email,
             password: password,
         });
@@ -38,7 +38,7 @@ export const login = async (email: any, password: any,setuser:any,setloading:any
 export const loaduser = async (setuser:any,setError:any) => {
     try {
 
-        const { data } = await axios.put("https://ai-3g9n8rp9x-shiv3710s-projects.vercel.app/api/loaduser", {
+        const { data } = await axios.put("https://ai-gs47.onrender.com/api/loaduser", {
             token: localStorage.getItem('token'),
         })
         if (data.error) throw new Error(data.error);

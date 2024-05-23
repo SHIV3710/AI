@@ -2,7 +2,7 @@ import axios from "axios";
 
 export const LoadHistory = async (user:any,setuserHistory:any,setError:any) => {
     try {   
-        const { data } = await axios.get(`https://ai-3g9n8rp9x-shiv3710s-projects.vercel.app/api/userhistory/${user.id}`);
+        const { data } = await axios.get(`https://ai-gs47.onrender.com/api/userhistory/${user.id}`);
         if (data.error) throw new Error(data.error);
         let history = [];
         for (let i = 0; i < data.UserHistory.length; i++){
