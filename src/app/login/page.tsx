@@ -24,7 +24,7 @@ const Page = () => {
 
   const [useremail, setuseremail] = useState("");
   const [userpassword, setuserpassword] = useState("");
-  const { user, setuser, loading, setloading ,Error,setError} = useContext(UserContext);
+  const { user, setuser, loading, setloading ,Error,setError,setuserHistory} = useContext(UserContext);
   const router = useRouter();
   
   const handlelogin = async (e:any) => {
@@ -40,6 +40,7 @@ const Page = () => {
   
   useEffect(() => {
     if (localStorage.getItem('token') && !user.Email) {
+      setuserHistory([]);
       handleloaduser();
     }
     if(user && user.Email) router.push('/home')

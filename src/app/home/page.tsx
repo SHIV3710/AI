@@ -89,12 +89,6 @@ export default function Home() {
     });
   }
 
-  useEffect(() => {
-    console.log(userHistory);
-  },[userHistory])
-
-
-
   return (
     <div className='h-200 w-200 flex'>
       <div className='h-200 w-200  flex flex-col items-center justify-between py-5'>
