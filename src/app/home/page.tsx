@@ -43,8 +43,14 @@ export default function Home() {
   
   const { user, setuser, currconv, setcurrconv,setmessageloading ,userHistory,setuserHistory,setError,loading} = useContext(UserContext);
   const [UserMessage, setCurrMessage] = useState<any>("");
-  const [UserHistory, setUserHistory] = useState<any>([]);
-  
+  const [Mode, setMode] = useState<any>("light");
+
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      setMode(localStorage.getItem("theme"));
+    }
+  })
   
   const router = useRouter();
 
@@ -108,7 +114,7 @@ export default function Home() {
 
             </SheetContent>
           </Sheet>
-          <div className="min-h-12 w-14 flex items-center justify-center gap-1 rounded-sm cursor-pointer" onClick={handletheme}>{localStorage.getItem('theme') == 'light' ? <><FiSun /> </> : <><FaRegMoon /> </>} </div>
+          <div className="min-h-12 w-14 flex items-center justify-center gap-1 rounded-sm cursor-pointer" onClick={handletheme}>{Mode  == 'light' ? <><FiSun /> </> : <><FaRegMoon /> </>} </div>
           <div className="flex items-center gap-3">
           <DropdownMenu>
             <DropdownMenuTrigger>
