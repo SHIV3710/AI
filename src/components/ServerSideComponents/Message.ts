@@ -13,7 +13,7 @@ export const SendMessage = async (user:any, UserMessage:any,setmessageloading:an
                 message:UserMessage,
             }]
         });
-        const { data } = await axios.post('http://localhost:3000/api/sendmessage', {
+        const { data } = await axios.post('https://ai-3g9n8rp9x-shiv3710s-projects.vercel.app/api/sendmessage', {
             topic:Topic,
             senderId: user.id,
             message: UserMessage,
@@ -39,7 +39,7 @@ export const SendMessage = async (user:any, UserMessage:any,setmessageloading:an
 export const LoadConversation = async (user:any,setloading:any,topic:any,setcurrconv:any,setError:any) => {
     try {
         setloading(true);
-        const { data  } = await axios.put('http://localhost:3000/api/loadconversation', {
+        const { data  } = await axios.put('https://ai-3g9n8rp9x-shiv3710s-projects.vercel.app/api/loadconversation', {
             topic: topic,
             participants: [user.id, "AI"],
         });
