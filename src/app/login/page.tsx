@@ -20,7 +20,7 @@ import UserContext from "@/context/UserContext";
 
 
 
-const page = () => {
+const Page = () => {
 
   const [useremail, setuseremail] = useState("");
   const [userpassword, setuserpassword] = useState("");
@@ -93,4 +93,4 @@ const page = () => {
   )
 }
 
-export default page
+export default Page
