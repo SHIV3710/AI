@@ -17,7 +17,7 @@ const nextConfig = {
         headers: [
           {
             key: 'Access-Control-Allow-Origin',
-            value: 'https://ai-fxavxfce1-shiv3710s-projects.vercel.app', // Specify your allowed origin
+            value: 'https://ai-3g9n8rp9x-shiv3710s-projects.vercel.app', // Specify your allowed origin
           },
           {
             key: 'Access-Control-Allow-Methods',
