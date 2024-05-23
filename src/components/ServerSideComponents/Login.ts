@@ -5,7 +5,7 @@ export const login = async (email: any, password: any,setuser:any,setloading:any
     
     const secretkey = process.env.NEXT_PUBLIC_SECRET_KEY;
     try {
-        setloading({value:true});
+        setloading(true);
         const { data  } = await axios.post("https://ai-gs47.onrender.com/api/login", {
             email: email,
             password: password,
@@ -22,14 +22,14 @@ export const login = async (email: any, password: any,setuser:any,setloading:any
             {
                 localStorage.setItem('token', token);
             }
-            setloading({value:false});
+            setloading(false);
             setuser({
                 id: data.user.id,
                 Email: data.user.id,
             });
         }
     } catch (error:any) {
-        setloading({ value:false});
+        setloading(false);
         setError( error.message );
         
     }

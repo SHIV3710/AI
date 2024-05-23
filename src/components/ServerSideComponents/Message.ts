@@ -2,7 +2,7 @@ import axios from "axios";
 
 export const SendMessage = async (user:any, UserMessage:any,setmessageloading:any,currconv:any,setcurrconv:any,Topic:any,userHistory:any,setUserHistory:any,setError:any) => {
     try {
-        setmessageloading({value:true});
+        setmessageloading(true);
         setcurrconv({
             Topic: Topic,
             Messages: currconv.Messages ? [...currconv.Messages, {
